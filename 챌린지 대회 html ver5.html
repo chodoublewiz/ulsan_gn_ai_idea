@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>울산강남중 AI 아이디어 챌린지 대회 - 탐구·과제 활동 기록장</title>
+  <!-- html2pdf.js 라이브러리 (PDF 저장) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- Google Fonts: Noto Sans KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --accent-color: #0d9488;
+      --accent-soft: #f0fdf4;
+      --submit-color: #f97316; /* 주황색 제출 버튼 */
+      --submit-dark: #ea580c;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 40px 15px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 960px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    /* 헤더 및 탭 디자인 */
+    .header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 40px 30px 20px 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(8px);
+      color: #93c5fd;
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .header p {
+      font-size: 1.05rem;
+      color: #cbd5e1;
+      font-weight: 400;
+      margin-bottom: 25px;
+    }
+
+    /* 네비게이션 탭 */
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      background-color: rgba(255, 255, 255, 0.08);
+      padding: 6px;
+      border-radius: 10px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 16px;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    /* Main 콘텐츠 영역 */
+    .content-area {
+      padding: 35px 30px;
+    }
+
+    .section-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 26px;
+      margin-bottom: 26px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--primary-soft);
+    }
+
+    .section-number {
+      background: var(--primary-color);
+      color: #ffffff;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    /* 그리드 레이아웃 */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+
+    @media (max-width: 768px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .grid-2, .grid-4 { grid-template-columns: 1fr; }
+      .content-area { padding: 20px 15px; }
+    }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      color: #334155;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 0.98rem;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.2s;
+      background-color: #f8fafc;
+      color: var(--text-main);
+    }
+
+    .form-group input[readonly] {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: #2563eb;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary-color);
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .form-group textarea {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    /* 이미지 업로드 영역 */
+    .image-upload-box {
+      border: 2px dashed #cbd5e1;
+      background-color: #f8fafc;
+      border-radius: 10px;
+      padding: 22px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .image-upload-box:hover { border-color: var(--primary-color); background-color: var(--primary-soft); }
+
+    .image-preview-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .img-preview-item {
+      position: relative;
+      width: 100%;
+      height: 120px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+    }
+
+    .img-preview-item img { width: 100%; height: 100%; object-fit: cover; }
+    .img-delete-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: rgba(15, 23, 42, 0.75);
+      color: #fff;
+      border: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 버튼 스타일 */
+    .btn-group {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 11px 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-reset { background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+    .btn-reset:hover { background-color: #e2e8f0; }
+    .btn-sample { background-color: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+    .btn-sample:hover { background-color: #dcfce7; }
+    .btn-primary { background-color: var(--primary-color); color: #ffffff; }
+    .btn-primary:hover { background-color: var(--primary-dark); }
+    .btn-secondary { background-color: #475569; color: #ffffff; }
+    .btn-secondary:hover { background-color: #334155; }
+    .btn-danger { background-color: #ef4444; color: #ffffff; }
+    .btn-danger:hover { background-color: #dc2626; }
+    
+    /* 주황색 제출 버튼 */
+    .btn-submit { background-color: var(--submit-color); color: #ffffff; }
+    .btn-submit:hover:not(:disabled) { background-color: var(--submit-dark); }
+
+    /* 목록 화면 컨트롤 */
+    .filter-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .record-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .record-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .record-card:hover {
+      border-color: #3b82f6;
+      box-shadow: var(--shadow-md);
+    }
+
+    .record-info h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .record-meta {
+      display: flex;
+      gap: 15px;
+      font-size: 0.88rem;
+      color: #64748b;
+      flex-wrap: wrap;
+    }
+
+    .record-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .empty-msg {
+      text-align: center;
+      padding: 50px 20px;
+      color: #64748b;
+      font-size: 1rem;
+    }
+
+    /* PDF 문서 및 미리보기 스타일 */
+    #preview-area { display: none; }
+    .pdf-document {
+      background: #ffffff;
+      padding: 40px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #0f172a;
+    }
+
+    .pdf-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 18px;
+      border-bottom: 2px solid #0f172a;
+      page-break-inside: avoid;
+    }
+
+    .pdf-header h2 { font-size: 2rem; font-weight: 800; color: #0f172a; }
+
+    .pdf-section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 24px 0 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      page-break-after: avoid;
+    }
+
+    .pdf-section-title::before {
+      content: ''; display: inline-block; width: 4px; height: 16px; background-color: #2563eb; border-radius: 2px;
+    }
+
+    .pdf-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 18px;
+      page-break-inside: avoid;
+    }
+
+    .pdf-table th, .pdf-table td {
+      border: 1px solid #94a3b8;
+      padding: 9px 12px;
+      text-align: left;
+      word-break: break-all;
+    }
+
+    .pdf-table th { background-color: #f8fafc; width: 22%; font-weight: 700; color: #334155; text-align: center; }
+
+    .pdf-qa-box { margin-bottom: 14px; page-break-inside: avoid; break-inside: avoid; }
+    .pdf-question { font-weight: 700; font-size: 0.95rem; background-color: #f1f5f9; padding: 9px 12px; border: 1px solid #94a3b8; border-bottom: none; }
+    .pdf-answer { padding: 12px; border: 1px solid #94a3b8; min-height: 60px; white-space: pre-wrap; }
+
+    .pdf-image-section { page-break-inside: avoid; break-inside: avoid; }
+    .pdf-image-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; }
+    .pdf-image-item { border: 1px solid #cbd5e1; border-radius: 6px; padding: 6px; text-align: center; background-color: #fafafa; page-break-inside: avoid; }
+    .pdf-image-item img { max-width: 100%; max-height: 200px; object-fit: contain; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- 메인 헤더 & 네비게이션 탭 -->
+    <div class="header">
+      <span class="header-badge">울산강남중학교</span>
+      <h1>울산강남중 AI 아이디어 챌린지 대회</h1>
+      <p>인공지능 탐구 프로젝트 활동 및 가치를 기록장으로 완성해 보세요.</p>
+      
+      <div class="nav-tabs">
+        <button type="button" id="tab-form-btn" class="tab-btn active" onclick="switchTab('form')">활동 기록 작성</button>
+        <button type="button" id="tab-list-btn" class="tab-btn" onclick="switchTab('list')">저장된 활동 기록 목록 (<span id="record-count">0</span>)</button>
+      </div>
+    </div>
+
+    <!-- [1. 활동 기록 작성 폼 영역] -->
+    <div id="form-area" class="content-area">
+      <form id="activityForm">
+        <input type="hidden" id="editingRecordId" value="">
+        
+        <!-- 1. 참가자 정보 -->
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-number">1</span>
+            <h2 class="section-title">참가자 정보</h2>
+          </div>
+          <div class="grid-4">
+            <div class="form-group">
+              <label for="participantId">참가번호</label>
+              <input type="text" id="participantId" readonly title="자동 생성 참가 ID">
+            </div>
+            <div class="form-group">
+              <label for="studentId">학번</label>
+              <input type="text" id="studentId" placeholder="예: 20101" required>
+            </div>
+            <div class="form-group">
+              <label for="name">이름</label>
+              <input type="text" id="name" placeholder="홍길동" required>
+            </div>
+            <div class="form-group">
+              <label for="date">작성 날짜</label>
+              <input type="date" id="date" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 활동 정보 -->
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-number">2</span>
+            <h2 class="section-title">활동 정보</h2>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label for="activityType">활동 유형 (활동명)</label>
+              <select id="activityType" required>
+                <option value="">유형을 선택하세요</option>
+                <option value="AI 서비스/앱 아이디어 기획">AI 서비스/앱 아이디어 기획</option>
+                <option value="AI 프로그래밍 및 모델 구현">AI 프로그래밍 및 모델 구현</option>
+                <option value="AI 데이터 분석 및 탐구">AI 데이터 분석 및 탐구</option>
+                <option value="AI 윤리 및 사회적 영향 탐구">AI 윤리 및 사회적 영향 탐구</option>
+                <option value="AI 융합 실습 및 피지컬 컴퓨팅">AI 융합 실습 및 피지컬 컴퓨팅</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="projectTopic">프로젝트 주제</label>
+              <input type="text" id="projectTopic" placeholder="예: 올바른 쓰레기 분리배출 안내 AI 도우미" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 탐구·과제 활동 기록 -->
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-number">3</span>
+            <h2 class="section-title">탐구·과제 활동 기록</h2>
+          </div>
+          <div class="form-group">
+            <label for="q1">Q1. 내가 무엇을 했나요?</label>
+            <textarea id="q1" placeholder="활동 중 진행한 단계별 탐구 내용이나 역임한 역할을 구체적으로 적어주세요." required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="q2">Q2. 활동을 하면서 무엇을 알게 되었나요?</label>
+            <textarea id="q2" placeholder="새롭게 이해하게 된 AI 기술 원리나 지식, 개념을 적어주세요." required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="q3">Q3. 어려웠던 점은 무엇인가요?</label>
+            <textarea id="q3" placeholder="진행 중 발생한 문제점, 한계점 또는 어려웠던 부분을 적어주세요." required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="q4">Q4. 활동을 통해 새롭게 발견한 점은 무엇인가요?</label>
+            <textarea id="q4" placeholder="자신의 흥미, 새로운 인사이트, 또는 향후 확장하고 싶은 방향을 적어주세요." required></textarea>
+          </div>
+        </div>
+
+        <!-- 4. 활동 관련 이미지 첨부 -->
+        <div class="section-card">
+          <div class="section-header">
+            <span class="section-number">4</span>
+            <h2 class="section-title">활동 관련 이미지 / 증빙 자료 (최대 6장)</h2>
+          </div>
+          <div class="image-upload-box" onclick="document.getElementById('imageInput').click();">
+            <strong style="color: var(--primary-color); font-size: 1.05rem;">📷 클릭하여 이미지 파일 첨부하기</strong>
+            <p>결과물, 코드 화면, 순서도, 탐구 관련 사진을 첨부하세요 (최대 6장)</p>
+            <input type="file" id="imageInput" accept="image/*" multiple style="display: none;" onchange="handleImageUpload(event)">
+          </div>
+          <div id="imagePreviewContainer" class="image-preview-container"></div>
+        </div>
+
+        <!-- 버튼 그룹 -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-reset" onclick="resetForm()">초기화</button>
+          <button type="button" class="btn btn-sample" onclick="loadSampleData()">샘플 작성</button>
+          <button type="button" class="btn btn-secondary" onclick="saveRecord()">임시 저장 (브라우저)</button>
+          <button type="button" class="btn btn-primary" onclick="showPreviewFromForm()">기록 미리보기</button>
+          <!-- 주황색 활동 기록 제출 버튼 -->
+          <button type="button" id="submit-btn" class="btn btn-submit" onclick="submitToGoogle()">🚀 활동 기록 제출</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- [2. 저장된 활동 기록 목록 영역] -->
+    <div id="list-area" class="content-area" style="display: none;">
+      <div class="filter-card">
+        <div class="grid-4">
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="filterDate">활동 날짜 검색</label>
+            <input type="date" id="filterDate" onchange="renderRecordList()">
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="filterType">활동 유형(활동명)</label>
+            <select id="filterType" onchange="renderRecordList()">
+              <option value="">전체 유형</option>
+              <option value="AI 서비스/앱 아이디어 기획">AI 서비스/앱 아이디어 기획</option>
+              <option value="AI 프로그래밍 및 모델 구현">AI 프로그래밍 및 모델 구현</option>
+              <option value="AI 데이터 분석 및 탐구">AI 데이터 분석 및 탐구</option>
+              <option value="AI 윤리 및 사회적 영향 탐구">AI 윤리 및 사회적 영향 탐구</option>
+              <option value="AI 융합 실습 및 피지컬 컴퓨팅">AI 융합 실습 및 피지컬 컴퓨팅</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:0; grid-column: span 2;">
+            <label for="filterTopic">프로젝트 주제 / 이름 검색</label>
+            <input type="text" id="filterTopic" placeholder="주제나 작성자 이름 입력..." oninput="renderRecordList()">
+          </div>
+        </div>
+      </div>
+
+      <div id="recordListContainer" class="record-list"></div>
+    </div>
+
+    <!-- [3. 기록 상세 보기 및 PDF 미리보기 영역] -->
+    <div id="preview-area" class="content-area">
+      <div id="pdf-content" class="pdf-document">
+        <div class="pdf-header">
+          <h2>울산강남중 AI 아이디어 챌린지 대회</h2>
+          <p style="margin-top: 5px; color: #475569; font-size: 1.05rem;">참가자 탐구·과제 활동 기록장</p>
+        </div>
+
+        <div class="pdf-section-title">1. 참가자 정보</div>
+        <table class="pdf-table">
+          <tr>
+            <th>참가번호</th>
+            <td id="p-participantId"></td>
+            <th>학번</th>
+            <td id="p-studentId"></td>
+          </tr>
+          <tr>
+            <th>이름</th>
+            <td id="p-name"></td>
+            <th>작성 날짜</th>
+            <td id="p-date"></td>
+          </tr>
+        </table>
+
+        <div class="pdf-section-title">2. 활동 정보</div>
+        <table class="pdf-table">
+          <tr>
+            <th>활동 유형</th>
+            <td colspan="3" id="p-activityType"></td>
+          </tr>
+          <tr>
+            <th>프로젝트 주제</th>
+            <td colspan="3" id="p-projectTopic"></td>
+          </tr>
+        </table>
+
+        <div class="pdf-section-title">3. 탐구·과제 활동 기록</div>
+        
+        <div class="pdf-qa-box">
+          <div class="pdf-question">Q1. 내가 무엇을 했나요?</div>
+          <div class="pdf-answer" id="p-q1"></div>
+        </div>
+
+        <div class="pdf-qa-box">
+          <div class="pdf-question">Q2. 활동을 하면서 무엇을 알게 되었나요?</div>
+          <div class="pdf-answer" id="p-q2"></div>
+        </div>
+
+        <div class="pdf-qa-box">
+          <div class="pdf-question">Q3. 어려웠던 점은 무엇인가요?</div>
+          <div class="pdf-answer" id="p-q3"></div>
+        </div>
+
+        <div class="pdf-qa-box">
+          <div class="pdf-question">Q4. 활동을 통해 새롭게 발견한 점은 무엇인가요?</div>
+          <div class="pdf-answer" id="p-q4"></div>
+        </div>
+
+        <div id="pdf-image-section" class="pdf-image-section" style="display: none;">
+          <div class="pdf-section-title">4. 활동 관련 이미지 / 증빙 자료</div>
+          <div id="pdf-image-grid" class="pdf-image-grid"></div>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary" onclick="backFromPreview()">돌아가기</button>
+        <button type="button" id="preview-edit-btn" class="btn btn-sample" onclick="editCurrentRecord()">기록 수정하기</button>
+        <button type="button" class="btn btn-primary" onclick="downloadPDF()">PDF 문서 저장</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ==========================================
+    // 연결 정보 변수 설정 (Google Drive / Sheets)
+    // ==========================================
+    const GOOGLE_SHEETS_ID = "1lSGu9P60r8AUYORfjiINZZ2h8xZcBToWCP-_A_vBiFc";
+    const GOOGLE_DRIVE_FOLDER_ID = "1_m7vdRUg17ZpGAlwViduB0HrmNraZ63U";
+    // 발급해주신 Google Apps Script Web App URL
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXmsmtrKTk9HnaisJoCXg5-iL_F5GfzxTRtYJRdU7affTu7-Hsi4mPyNryYhM2Ywbt/exec";
+
+    let uploadedImages = [];
+    let currentPreviewRecordId = null;
+    const STORAGE_KEY = 'ulsan_gangnam_ai_records';
+
+    function generateParticipantId() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let result = '';
+      for (let i = 0; i < 5; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
+
+    function initPage() {
+      document.getElementById('participantId').value = generateParticipantId();
+      document.getElementById('date').value = new Date().toISOString().substring(0, 10);
+      document.getElementById('editingRecordId').value = '';
+      uploadedImages = [];
+      renderImagePreviews();
+      updateRecordCount();
+    }
+
+    function switchTab(tab) {
+      document.getElementById('tab-form-btn').classList.toggle('active', tab === 'form');
+      document.getElementById('tab-list-btn').classList.toggle('active', tab === 'list');
+      
+      document.getElementById('form-area').style.display = tab === 'form' ? 'block' : 'none';
+      document.getElementById('list-area').style.display = tab === 'list' ? 'block' : 'none';
+      document.getElementById('preview-area').style.display = 'none';
+
+      if (tab === 'list') {
+        renderRecordList();
+      }
+    }
+
+    function handleImageUpload(event) {
+      const files = Array.from(event.target.files);
+      if (uploadedImages.length + files.length > 6) {
+        alert("이미지는 최대 6장까지 첨부할 수 있습니다.");
+        return;
+      }
+
+      files.forEach(file => {
+        if (!file.type.startsWith('image/')) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          if (uploadedImages.length < 6) {
+            uploadedImages.push(e.target.result);
+            renderImagePreviews();
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+      event.target.value = '';
+    }
+
+    function renderImagePreviews() {
+      const container = document.getElementById('imagePreviewContainer');
+      container.innerHTML = '';
+      uploadedImages.forEach((src, index) => {
+        const item = document.createElement('div');
+        item.className = 'img-preview-item';
+        item.innerHTML = `
+          <img src="${src}" alt="첨부 이미지 ${index + 1}">
+          <button type="button" class="img-delete-btn" onclick="deleteImage(${index})">✕</button>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function deleteImage(index) {
+      uploadedImages.splice(index, 1);
+      renderImagePreviews();
+    }
+
+    function getStoredRecords() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    }
+
+    function updateRecordCount() {
+      const records = getStoredRecords();
+      document.getElementById('record-count').innerText = records.length;
+    }
+
+    // ==========================================
+    // Google Sheets & Drive 제출 기능
+    // ==========================================
+    async function submitToGoogle() {
+      const form = document.getElementById('activityForm');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "제출 진행 중...";
+
+      const payload = {
+        spreadsheetId: GOOGLE_SHEETS_ID,
+        driveFolderId: GOOGLE_DRIVE_FOLDER_ID,
+        participantId: document.getElementById('participantId').value,
+        studentId: document.getElementById('studentId').value,
+        name: document.getElementById('name').value,
+        date: document.getElementById('date').value,
+        activityType: document.getElementById('activityType').value,
+        projectTopic: document.getElementById('projectTopic').value,
+        q1: document.getElementById('q1').value,
+        q2: document.getElementById('q2').value,
+        q3: document.getElementById('q3').value,
+        q4: document.getElementById('q4').value,
+        images: uploadedImages
+      };
+
+      try {
+        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+
+        const resData = await response.json();
+
+        if (resData.result === "success") {
+          alert("활동 기록이 성공적으로 제출되었습니다.");
+          saveRecord(false); // 제출 성공 후 브라우저 내 저장소에도 동기화
+        } else {
+          alert("저장에 실패했습니다. 오류 원인: " + (resData.message || "알 수 없는 오류"));
+        }
+      } catch (error) {
+        alert("서버 통신 중 오류가 발생했습니다. 원인: " + error.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "🚀 활동 기록 제출";
+      }
+    }
+
+    function saveRecord(showAlert = true) {
+      const form = document.getElementById('activityForm');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const records = getStoredRecords();
+      const editingId = document.getElementById('editingRecordId').value;
+
+      const recordData = {
+        id: editingId || 'rec_' + Date.now(),
+        participantId: document.getElementById('participantId').value,
+        studentId: document.getElementById('studentId').value,
+        name: document.getElementById('name').value,
+        date: document.getElementById('date').value,
+        activityType: document.getElementById('activityType').value,
+        projectTopic: document.getElementById('projectTopic').value,
+        q1: document.getElementById('q1').value,
+        q2: document.getElementById('q2').value,
+        q3: document.getElementById('q3').value,
+        q4: document.getElementById('q4').value,
+        images: [...uploadedImages],
+        updatedAt: new Date().toISOString()
+      };
+
+      if (editingId) {
+        const index = records.findIndex(r => r.id === editingId);
+        if (index !== -1) records[index] = recordData;
+      } else {
+        records.unshift(recordData);
+      }
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+      if (showAlert) alert(editingId ? "활동 기록이 성공적으로 수정되었습니다!" : "임시 저장 완료!");
+      
+      resetForm();
+      switchTab('list');
+    }
+
+    function deleteRecord(id) {
+      if (confirm("이 활동 기록을 정말로 삭제하시겠습니까?")) {
+        let records = getStoredRecords();
+        records = records.filter(r => r.id !== id);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+        renderRecordList();
+        updateRecordCount();
+      }
+    }
+
+    function renderRecordList() {
+      const records = getStoredRecords();
+      const filterDate = document.getElementById('filterDate').value;
+      const filterType = document.getElementById('filterType').value;
+      const filterTopic = document.getElementById('filterTopic').value.trim().toLowerCase();
+
+      const container = document.getElementById('recordListContainer');
+      container.innerHTML = '';
+
+      const filtered = records.filter(r => {
+        const matchDate = !filterDate || r.date === filterDate;
+        const matchType = !filterType || r.activityType === filterType;
+        const matchTopic = !filterTopic || 
+                           r.projectTopic.toLowerCase().includes(filterTopic) || 
+                           r.name.toLowerCase().includes(filterTopic);
+        return matchDate && matchType && matchTopic;
+      });
+
+      updateRecordCount();
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="empty-msg">저장된 활동 기록이 없거나 검색 조건과 일치하는 기록이 없습니다.</div>`;
+        return;
+      }
+
+      filtered.forEach(r => {
+        const card = document.createElement('div');
+        card.className = 'record-card';
+        card.innerHTML = `
+          <div class="record-info">
+            <h3>${r.projectTopic}</h3>
+            <div class="record-meta">
+              <span>📅 날짜: ${r.date}</span>
+              <span>📌 유형: ${r.activityType}</span>
+              <span>👤 작성자: ${r.studentId} ${r.name}</span>
+              <span>📷 이미지: ${r.images ? r.images.length : 0}장</span>
+            </div>
+          </div>
+          <div class="record-actions">
+            <button type="button" class="btn btn-primary" onclick="viewRecordDetail('${r.id}')">상세보기</button>
+            <button type="button" class="btn btn-danger" onclick="deleteRecord('${r.id}')">삭제</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function viewRecordDetail(id) {
+      const records = getStoredRecords();
+      const record = records.find(r => r.id === id);
+      if (!record) return;
+
+      currentPreviewRecordId = record.id;
+      fillPreviewData(record);
+
+      document.getElementById('form-area').style.display = 'none';
+      document.getElementById('list-area').style.display = 'none';
+      document.getElementById('preview-area').style.display = 'block';
+      document.getElementById('preview-edit-btn').style.display = 'inline-flex';
+      window.scrollTo(0, 0);
+    }
+
+    function showPreviewFromForm() {
+      const form = document.getElementById('activityForm');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const recordData = {
+        participantId: document.getElementById('participantId').value,
+        studentId: document.getElementById('studentId').value,
+        name: document.getElementById('name').value,
+        date: document.getElementById('date').value,
+        activityType: document.getElementById('activityType').value,
+        projectTopic: document.getElementById('projectTopic').value,
+        q1: document.getElementById('q1').value,
+        q2: document.getElementById('q2').value,
+        q3: document.getElementById('q3').value,
+        q4: document.getElementById('q4').value,
+        images: [...uploadedImages]
+      };
+
+      currentPreviewRecordId = document.getElementById('editingRecordId').value || null;
+      fillPreviewData(recordData);
+
+      document.getElementById('form-area').style.display = 'none';
+      document.getElementById('list-area').style.display = 'none';
+      document.getElementById('preview-area').style.display = 'block';
+      document.getElementById('preview-edit-btn').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
+    function fillPreviewData(data) {
+      const fields = ['participantId', 'studentId', 'name', 'date', 'activityType', 'projectTopic', 'q1', 'q2', 'q3', 'q4'];
+      fields.forEach(field => {
+        document.getElementById('p-' + field).innerText = data[field] || '';
+      });
+
+      const pdfImgSection = document.getElementById('pdf-image-section');
+      const pdfImgGrid = document.getElementById('pdf-image-grid');
+      pdfImgGrid.innerHTML = '';
+
+      if (data.images && data.images.length > 0) {
+        pdfImgSection.style.display = 'block';
+        data.images.forEach((src, idx) => {
+          const imgBox = document.createElement('div');
+          imgBox.className = 'pdf-image-item';
+          imgBox.innerHTML = `<img src="${src}" alt="증빙자료 ${idx + 1}">`;
+          pdfImgGrid.appendChild(imgBox);
+        });
+      } else {
+        pdfImgSection.style.display = 'none';
+      }
+    }
+
+    function editCurrentRecord() {
+      if (!currentPreviewRecordId) return;
+      const records = getStoredRecords();
+      const record = records.find(r => r.id === currentPreviewRecordId);
+      if (!record) return;
+
+      document.getElementById('editingRecordId').value = record.id;
+      document.getElementById('participantId').value = record.participantId;
+      document.getElementById('studentId').value = record.studentId;
+      document.getElementById('name').value = record.name;
+      document.getElementById('date').value = record.date;
+      document.getElementById('activityType').value = record.activityType;
+      document.getElementById('projectTopic').value = record.projectTopic;
+      document.getElementById('q1').value = record.q1;
+      document.getElementById('q2').value = record.q2;
+      document.getElementById('q3').value = record.q3;
+      document.getElementById('q4').value = record.q4;
+
+      uploadedImages = record.images ? [...record.images] : [];
+      renderImagePreviews();
+
+      switchTab('form');
+    }
+
+    function backFromPreview() {
+      document.getElementById('preview-area').style.display = 'none';
+      if (currentPreviewRecordId && document.getElementById('tab-list-btn').classList.contains('active')) {
+        document.getElementById('list-area').style.display = 'block';
+      } else {
+        document.getElementById('form-area').style.display = 'block';
+      }
+    }
+
+    function loadSampleData() {
+      document.getElementById('editingRecordId').value = '';
+      document.getElementById('studentId').value = '20101';
+      document.getElementById('name').value = '김강남';
+      document.getElementById('date').value = new Date().toISOString().substring(0, 10);
+      document.getElementById('activityType').value = 'AI 서비스/앱 아이디어 기획';
+      document.getElementById('projectTopic').value = 'AI 기반 올바른 쓰레기 분리배출 안내 도우미 챗봇';
+
+      document.getElementById('q1').value = '학교와 가정에서 발생하는 쓰레기 분리배출 문제를 해결하기 위해, 사용자가 카메라로 쓰레기를 촬영하거나 질문하면 올바른 분리배출 방법을 안내해주는 AI 챗봇 서비스를 기획하고 프롬프트를 설계했습니다.';
+      document.getElementById('q2').value = '인공지능 이미지 인식 기술이 재질(플라스틱, 비닐, 종이 등)을 구분하는 원리를 이해하게 되었고, 생성형 AI 모델이 정확하고 친절한 답변을 제공하도록 지시문(프롬프트)을 정교하게 작성하는 방법의 중요성을 깨달았습니다.';
+      document.getElementById('q3').value = '라벨이 붙은 페트병처럼 복합 재질로 이루어진 쓰레기의 경우 AI가 인식에 혼동을 일으키는 문제가 있었고, 이를 유저에게 알기 쉽게 안내하는 사용자 경험(UX)을 구성하는 데 어려움이 있었습니다.';
+      document.getElementById('q4').value = '단순히 복잡한 기술을 적용하는 것보다 사용자의 편의성을 함께 고민하는 것이 중요하다는 점을 배웠으며, 인공지능 기술이 지역사회의 환경 문제 해결에 실질적으로 기여할 수 있다는 자신감을 얻었습니다.';
+
+      alert('샘플 작성이 완료되었습니다!');
+    }
+
+    function resetForm() {
+      if (confirm("입력 중인 내용이 모두 초기화됩니다. 계속하시겠습니까?")) {
+        document.getElementById('activityForm').reset();
+        initPage();
+      }
+    }
+
+    function downloadPDF() {
+      const element = document.getElementById('pdf-content');
+      const participantId = document.getElementById('p-participantId').innerText || '코드';
+      const name = document.getElementById('p-name').innerText || '이름';
+
+      const opt = {
+        margin:       [10, 10, 10, 10],
+        filename:     `울산강남중_${participantId}_${name}_활동기록장.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      html2pdf().set(opt).from(element).save();
+    }
+
+    window.onload = initPage;
+  </script>
+</body>
+</html>
