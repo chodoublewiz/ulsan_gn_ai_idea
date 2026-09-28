@@ -692,7 +692,7 @@
       <div class="info-card hot"><div class="lb">제출 시작</div><div class="vl">9. 28.(월)</div></div>
       <div class="info-card"><div class="lb">제출 마감</div><div class="vl">10. 1.(목)</div></div>
       <div class="info-card"><div class="lb">작성 항목</div><div class="vl">Q1 ~ Q4 기록</div></div>
-      <div class="info-card"><div class="lb">증빙 사진</div><div class="vl">최대 6장</div></div>
+      <div class="info-card"><div class="lb">결과물 챕쳐 파일</div><div class="vl">최대 6장</div></div>
     </div>
 
     <div class="hero-controls">
@@ -799,11 +799,11 @@
         <div class="section-card">
           <div class="section-header">
             <span class="section-number">4</span>
-            <h2 class="section-title">활동 관련 이미지 / 증빙 자료 (최대 6장)</h2>
+            <h2 class="section-title">활동 관련 이미지 / 결과물 챕쳐 파일(최대 6장)</h2>
           </div>
           <div class="image-upload-box" onclick="document.getElementById('imageInput').click();">
             <strong>📷 클릭해서 이미지 첨부하기</strong>
-            <p>바이브 코딩 결과물, 코드 화면, 순서도, 탐구 관련 파일을 캡쳐해서 올려주세요 (최대 6장)</p>
+            <p>결과물, 코드 화면, 순서도, 탐구 관련 사진을 올려주세요 (최대 6장)</p>
             <input type="file" id="imageInput" accept="image/*" multiple style="display: none;" onchange="handleImageUpload(event)">
           </div>
           <div id="imagePreviewContainer" class="image-preview-container"></div>
@@ -908,7 +908,7 @@
         </div>
 
         <div id="pdf-image-section" class="pdf-image-section" style="display: none;">
-          <div class="pdf-section-title">4. 활동 관련 이미지 / 증빙 자료</div>
+          <div class="pdf-section-title">4. 활동 관련 이미지 / 결과물 챕쳐 파일 자료</div>
           <div id="pdf-image-grid" class="pdf-image-grid"></div>
         </div>
       </div>
@@ -1340,7 +1340,7 @@
         data.images.forEach((src, idx) => {
           const imgBox = document.createElement('div');
           imgBox.className = 'pdf-image-item';
-          imgBox.innerHTML = `<img src="${src}" alt="증빙자료 ${idx + 1}">`;
+          imgBox.innerHTML = `<img src="${src}" alt="결과물 챕쳐 파일 ${idx + 1}">`;
           pdfImgGrid.appendChild(imgBox);
         });
       } else {
