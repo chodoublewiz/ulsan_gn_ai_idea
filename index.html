@@ -6,105 +6,252 @@
   <title>울산강남중 AI 아이디어 챌린지 대회 - 탐구·과제 활동 기록장</title>
   <!-- html2pdf.js 라이브러리 (PDF 저장) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <!-- Google Fonts: Noto Sans KR -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Poppins:wght@800;900&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --primary-color: #2563eb;
-      --primary-dark: #1d4ed8;
-      --primary-soft: #eff6ff;
-      --accent-color: #0d9488;
-      --accent-soft: #f0fdf4;
-      --submit-color: #f97316; /* 주황색 제출 버튼 */
-      --submit-dark: #ea580c;
-      --bg-color: #f8fafc;
-      --card-bg: #ffffff;
-      --border-color: #e2e8f0;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
-      --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1);
+      /* 포스터 팔레트 */
+      --plum: #7b1e8e;
+      --grape: #5b2aa3;
+      --indigo: #3547b3;
+      --cobalt: #2563c4;
+      --navy: #1c2a6e;
+      --navy-deep: #16205a;
+      --pink: #e8307d;
+      --pink-dark: #c81f67;
+      --pink-soft: #f07aaa;
+      --periwinkle: #8fb0ea;
+      --periwinkle-soft: #c7d7f5;
+      --lavender-soft: #e4ddf1;
+      --rose-soft: #fbe3ec;
+
+      --text-main: #ffffff;
+      --text-sub: #dfe4ff;
+      --ink: #1c2a6e;
+      --ink-muted: #5f6a9c;
+      --field-line: #cfd8f2;
+
+      --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      --font-display: 'Poppins', 'Noto Sans KR', sans-serif;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-family: var(--font-body);
     }
+
+    html { background: var(--cobalt); }
 
     body {
-      background-color: var(--bg-color);
+      background: linear-gradient(180deg, var(--plum) 0%, var(--grape) 28%, var(--indigo) 60%, var(--cobalt) 100%);
       color: var(--text-main);
-      padding: 40px 15px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* 상단 메뉴바 (스크롤해도 고정) */
+    :root { --header-h: 73px; }
+    html { scroll-padding-top: calc(var(--header-h) + 80px); }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(110, 30, 140, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 6px 20px -12px rgba(10, 10, 50, 0.6);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.02rem;
+      color: #fff;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--pink);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1rem;
+    }
+
+    .top-menu {
+      display: flex;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 4px;
+      border-radius: 999px;
+    }
+
+    .menu-link {
+      display: inline-flex;
+      align-items: center;
+      height: 36px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #e6e9f5;
+      text-decoration: none;
+      transition: background-color 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .menu-link:hover { background: rgba(255, 255, 255, 0.12); }
+    .menu-link.active { background: #fff; color: var(--plum); }
+
+    /* 히어로 */
+    .hero {
+      text-align: center;
+      padding: 18px 20px 6px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-weight: 900;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .hero h1 {
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4.4vw, 2.9rem);
+      line-height: 1.2;
+      letter-spacing: -1.5px;
+      color: #ffffff;
+      word-break: keep-all;
+      text-wrap: balance;
+    }
+
+    .hero-sub {
+      font-weight: 700;
+      font-size: clamp(0.98rem, 2vw, 1.2rem);
+      color: #fff;
+      margin: 6px 0 12px;
+      letter-spacing: -0.5px;
+      word-break: keep-all;
+    }
+
+    .meta-row {
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 960px;
-      background: var(--card-bg);
-      border-radius: 16px;
-      box-shadow: var(--shadow-lg);
-      overflow: hidden;
-      border: 1px solid var(--border-color);
-    }
-
-    /* 헤더 및 탭 디자인 */
-    .header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
-      color: #ffffff;
-      padding: 40px 30px 20px 30px;
-      text-align: center;
-      position: relative;
-    }
-
-    .header-badge {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(8px);
-      color: #93c5fd;
-      padding: 5px 16px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      margin-bottom: 12px;
-    }
-
-    .header h1 {
-      font-size: 2.1rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
-      color: #ffffff;
-    }
-
-    .header p {
+      flex-wrap: wrap;
+      gap: 10px 28px;
+      font-weight: 700;
       font-size: 1.05rem;
-      color: #cbd5e1;
-      font-weight: 400;
-      margin-bottom: 25px;
+    }
+    .meta { display: inline-flex; align-items: center; gap: 8px; }
+    .meta-tag {
+      background: #fff;
+      color: var(--navy);
+      font-size: 0.88rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 3px;
     }
 
-    /* 네비게이션 탭 */
+    /* 대형 워드마크 (포스터의 SU WON 느낌) */
+    .wordmark {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      gap: 0.12em;
+      margin: 12px 0 2px;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(3.2rem, 8vw, 5.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      user-select: none;
+    }
+    .wm-ai { color: var(--pink-soft); }
+    .wm-idea { color: var(--periwinkle); }
+
+    .hero-desc {
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: var(--text-sub);
+      word-break: keep-all;
+      max-width: 640px;
+      margin: 6px auto 0;
+    }
+    .hero-desc strong { color: #fff; font-weight: 800; }
+
+    /* 정보 카드 (포스터의 대회일정 박스) */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      max-width: 860px;
+      margin: 18px auto 14px;
+    }
+
+    .info-card {
+      background: var(--navy);
+      border-radius: 8px;
+      padding: 11px 10px;
+    }
+    .info-card.hot { background: var(--pink); }
+    .info-card .lb { font-size: 0.88rem; color: var(--periwinkle-soft); margin-bottom: 4px; font-weight: 500; }
+    .info-card.hot .lb { color: #ffe0ee; }
+    .info-card .vl { font-size: 1.08rem; font-weight: 800; color: #fff; word-break: keep-all; }
+
+    .hero-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px 16px;
+    }
+
+    .dday-pill {
+      display: inline-block;
+      background: #fff;
+      color: var(--pink);
+      font-weight: 900;
+      font-size: 1.05rem;
+      padding: 10px 24px;
+      border-radius: 999px;
+    }
+
+    /* 탭 */
     .nav-tabs {
       display: flex;
-      justify-content: center;
-      gap: 10px;
-      background-color: rgba(255, 255, 255, 0.08);
+      gap: 6px;
+      background: rgba(22, 32, 90, 0.55);
       padding: 6px;
-      border-radius: 10px;
+      border-radius: 12px;
+      width: 100%;
       max-width: 420px;
-      margin: 0 auto;
+      margin: 0;
     }
 
     .tab-btn {
@@ -112,32 +259,44 @@
       padding: 10px 16px;
       border: none;
       background: transparent;
-      color: #94a3b8;
-      font-size: 0.95rem;
-      font-weight: 600;
+      color: var(--periwinkle-soft);
+      font-size: 0.98rem;
+      font-weight: 700;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: background 0.2s, color 0.2s;
+    }
+    .tab-btn:hover { color: #fff; }
+    .tab-btn.active { background: #fff; color: var(--navy); }
+
+    #record-count {
+      display: inline-block;
+      min-width: 22px;
+      padding: 0 6px;
+      margin-left: 4px;
+      border-radius: 999px;
+      background: var(--pink);
+      color: #fff;
+      font-size: 0.8rem;
     }
 
-    .tab-btn.active {
-      background: #ffffff;
-      color: #0f172a;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    /* 본문 */
+    .container {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
     }
 
-    /* Main 콘텐츠 영역 */
-    .content-area {
-      padding: 35px 30px;
-    }
+    .content-area { padding: 18px 0 0; }
 
     .section-card {
       background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 26px;
-      margin-bottom: 26px;
-      box-shadow: var(--shadow-sm);
+      color: var(--ink);
+      border-radius: 14px;
+      padding: 28px 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 14px 30px -18px rgba(12, 16, 60, 0.6);
     }
 
     .section-header {
@@ -145,48 +304,43 @@
       align-items: center;
       gap: 12px;
       margin-bottom: 22px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid var(--primary-soft);
+      padding-bottom: 14px;
+      border-bottom: 2px solid #edf1fb;
     }
 
     .section-number {
-      background: var(--primary-color);
-      color: #ffffff;
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
+      background: var(--pink);
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
+      font-family: var(--font-display);
+      font-weight: 800;
       font-size: 0.95rem;
+      flex-shrink: 0;
     }
 
     .section-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #0f172a;
+      font-weight: 900;
+      font-size: 1.3rem;
+      letter-spacing: -0.5px;
+      color: var(--navy);
     }
 
     /* 그리드 레이아웃 */
     .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
     .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 
-    @media (max-width: 768px) {
-      .grid-4 { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 520px) {
-      .grid-2, .grid-4 { grid-template-columns: 1fr; }
-      .content-area { padding: 20px 15px; }
-    }
-
     .form-group { margin-bottom: 18px; }
     .form-group label {
       display: block;
-      font-weight: 600;
-      font-size: 0.95rem;
+      font-weight: 700;
+      font-size: 0.94rem;
       margin-bottom: 8px;
-      color: #334155;
+      color: var(--navy);
     }
 
     .form-group input,
@@ -195,44 +349,75 @@
       width: 100%;
       padding: 12px 15px;
       font-size: 0.98rem;
-      border: 1.5px solid var(--border-color);
+      border: 1.5px solid var(--field-line);
       border-radius: 8px;
       outline: none;
-      transition: all 0.2s;
-      background-color: #f8fafc;
-      color: var(--text-main);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background-color: #f6f8fe;
+      color: var(--ink);
     }
 
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #9aa4c8; }
+
     .form-group input[readonly] {
-      background-color: #f1f5f9;
-      font-weight: 700;
-      color: #2563eb;
+      background-color: var(--navy);
+      border-color: var(--navy);
+      font-family: var(--font-display);
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: #fff;
     }
 
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-      border-color: var(--primary-color);
-      background-color: #ffffff;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      border-color: var(--pink);
+      background-color: #fff;
+      box-shadow: 0 0 0 3px rgba(232, 48, 125, 0.15);
     }
 
     .form-group textarea {
-      min-height: 110px;
+      min-height: 120px;
       resize: vertical;
-      line-height: 1.6;
+      line-height: 1.7;
+    }
+
+    /* Q&A 질문 라벨 (포스터의 '주제' 라벨 스타일) */
+    .q-label {
+      display: flex !important;
+      align-items: center;
+      gap: 10px;
+    }
+    .q-label .q-tag {
+      background: var(--navy);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.8rem;
+      border-radius: 4px;
+      padding: 2px 9px;
     }
 
     /* 이미지 업로드 영역 */
     .image-upload-box {
-      border: 2px dashed #cbd5e1;
-      background-color: #f8fafc;
+      border: 2px dashed var(--periwinkle);
+      background-color: #f3f6fe;
       border-radius: 10px;
-      padding: 22px;
+      padding: 28px 22px;
       text-align: center;
       cursor: pointer;
+      transition: border-color 0.2s, background-color 0.2s;
     }
-    .image-upload-box:hover { border-color: var(--primary-color); background-color: var(--primary-soft); }
+    .image-upload-box strong {
+      display: block;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .image-upload-box p { color: var(--ink-muted); font-size: 0.92rem; }
+    .image-upload-box:hover { border-color: var(--pink); background-color: var(--rose-soft); }
 
     .image-preview-container {
       display: grid;
@@ -247,19 +432,18 @@
       height: 120px;
       border-radius: 8px;
       overflow: hidden;
-      border: 1px solid #cbd5e1;
+      border: 1px solid var(--field-line);
     }
-
     .img-preview-item img { width: 100%; height: 100%; object-fit: cover; }
     .img-delete-btn {
       position: absolute;
-      top: 5px;
-      right: 5px;
-      background: rgba(15, 23, 42, 0.75);
+      top: 6px;
+      right: 6px;
+      background: var(--pink);
       color: #fff;
       border: none;
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       cursor: pointer;
       font-size: 12px;
@@ -268,189 +452,273 @@
       justify-content: center;
     }
 
+    /* 상단 고정 버튼 바 */
+    .action-bar {
+      position: sticky;
+      top: calc(var(--header-h) + 10px);
+      z-index: 40;
+      margin: 0 0 16px;
+      padding: 8px;
+      background: rgba(22, 32, 90, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      box-shadow: 0 12px 26px -14px rgba(8, 10, 40, 0.8);
+    }
+    .action-bar .btn-submit { margin-left: auto; }
+
     /* 버튼 스타일 */
     .btn-group {
       display: flex;
       justify-content: flex-end;
       gap: 10px;
-      margin-top: 10px;
       flex-wrap: wrap;
     }
 
     .btn {
-      padding: 11px 22px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
+      height: 42px;
+      padding: 0 20px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+      border-radius: 999px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
+      white-space: nowrap;
     }
+    .btn:hover:not(:disabled) { box-shadow: 0 4px 12px -6px rgba(20, 24, 50, 0.45); }
+    .btn:focus-visible, .tab-btn:focus-visible, .menu-link:focus-visible { outline: 3px solid var(--pink-soft); outline-offset: 2px; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+    /* 보조 버튼: 은은한 파스텔 */
+    .btn-reset { background: rgba(255, 255, 255, 0.08); color: #e6e9f5; border-color: rgba(255, 255, 255, 0.28); }
+    .btn-reset:hover { background: rgba(255, 255, 255, 0.16); }
+    .btn-sample { background: #dcebe6; color: #3d6b60; }
+    .btn-sample:hover { background: #cfe2dc; }
+    .btn-secondary { background: var(--lavender-soft); color: #4b4282; }
+    .btn-secondary:hover { background: #d8cfec; }
+    .btn-primary { background: var(--periwinkle-soft); color: var(--navy); }
+    .btn-primary:hover { background: #cbd5ec; }
+    .btn-danger { background: var(--rose-soft); color: var(--pink-dark); border-color: transparent; }
+    .btn-danger:hover { background: #efd2dc; }
 
-    .btn-reset { background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
-    .btn-reset:hover { background-color: #e2e8f0; }
-    .btn-sample { background-color: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
-    .btn-sample:hover { background-color: #dcfce7; }
-    .btn-primary { background-color: var(--primary-color); color: #ffffff; }
-    .btn-primary:hover { background-color: var(--primary-dark); }
-    .btn-secondary { background-color: #475569; color: #ffffff; }
-    .btn-secondary:hover { background-color: #334155; }
-    .btn-danger { background-color: #ef4444; color: #ffffff; }
-    .btn-danger:hover { background-color: #dc2626; }
-    
-    /* 주황색 제출 버튼 */
-    .btn-submit { background-color: var(--submit-color); color: #ffffff; }
-    .btn-submit:hover:not(:disabled) { background-color: var(--submit-dark); }
+    /* 제출 버튼: 선명한 핑크 */
+    .btn-submit { background: var(--pink); color: #fff; padding: 0 24px; }
+    .btn-submit:hover:not(:disabled) { background: var(--pink-dark); }
 
-    /* 목록 화면 컨트롤 */
+    /* 목록 화면 */
     .filter-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 18px;
+      background: #fff;
+      color: var(--ink);
+      border-radius: 14px;
+      padding: 20px 22px;
       margin-bottom: 20px;
     }
 
-    .record-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
+    .record-list { display: flex; flex-direction: column; gap: 12px; }
 
     .record-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
+      background: #fff;
+      border-left: 6px solid var(--pink);
       border-radius: 10px;
-      padding: 20px;
+      padding: 20px 22px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: all 0.2s;
+      gap: 16px;
     }
-
-    .record-card:hover {
-      border-color: #3b82f6;
-      box-shadow: var(--shadow-md);
-    }
+    .record-card:nth-child(even) { border-left-color: var(--periwinkle); }
 
     .record-info h3 {
       font-size: 1.1rem;
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 6px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 8px;
+      word-break: keep-all;
     }
 
     .record-meta {
       display: flex;
-      gap: 15px;
-      font-size: 0.88rem;
-      color: #64748b;
+      gap: 8px 16px;
+      font-size: 0.86rem;
+      color: var(--ink-muted);
       flex-wrap: wrap;
     }
 
-    .record-actions {
-      display: flex;
-      gap: 8px;
-    }
+    .record-actions { display: flex; gap: 8px; flex-shrink: 0; }
+    .record-actions .btn-primary { background: var(--periwinkle-soft); color: var(--navy); }
+    .record-actions .btn-primary:hover { background: #cbd5ec; }
 
     .empty-msg {
       text-align: center;
-      padding: 50px 20px;
-      color: #64748b;
+      padding: 56px 20px;
+      color: var(--text-sub);
       font-size: 1rem;
+      border: 2px dashed rgba(255, 255, 255, 0.35);
+      border-radius: 14px;
     }
 
-    /* PDF 문서 및 미리보기 스타일 */
+    /* PDF 문서 */
     #preview-area { display: none; }
     .pdf-document {
       background: #ffffff;
       padding: 40px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
+      border-radius: 12px;
       font-size: 0.95rem;
       line-height: 1.6;
-      color: #0f172a;
+      color: #1c2a6e;
+      margin-bottom: 18px;
     }
 
     .pdf-header {
       text-align: center;
       margin-bottom: 30px;
       padding-bottom: 18px;
-      border-bottom: 2px solid #0f172a;
+      border-bottom: 2px solid #1c2a6e;
       page-break-inside: avoid;
     }
-
-    .pdf-header h2 { font-size: 2rem; font-weight: 800; color: #0f172a; }
+    .pdf-header::before {
+      content: '';
+      display: block;
+      height: 6px;
+      margin: -10px auto 22px;
+      max-width: 260px;
+      background: linear-gradient(90deg, #7b1e8e, #e8307d 45%, #8fb0ea);
+      border-radius: 3px;
+    }
+    .pdf-header h2 { font-size: 1.9rem; font-weight: 900; letter-spacing: -1px; color: #1c2a6e; }
 
     .pdf-section-title {
       font-size: 1.1rem;
-      font-weight: 700;
-      color: #0f172a;
+      font-weight: 800;
+      color: #1c2a6e;
       margin: 24px 0 10px 0;
       display: flex;
       align-items: center;
       gap: 8px;
       page-break-after: avoid;
     }
-
     .pdf-section-title::before {
-      content: ''; display: inline-block; width: 4px; height: 16px; background-color: #2563eb; border-radius: 2px;
+      content: ''; display: inline-block; width: 5px; height: 17px; background: #e8307d; border-radius: 2px;
     }
 
-    .pdf-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 18px;
-      page-break-inside: avoid;
-    }
-
-    .pdf-table th, .pdf-table td {
-      border: 1px solid #94a3b8;
-      padding: 9px 12px;
-      text-align: left;
-      word-break: break-all;
-    }
-
-    .pdf-table th { background-color: #f8fafc; width: 22%; font-weight: 700; color: #334155; text-align: center; }
+    .pdf-table { width: 100%; border-collapse: collapse; margin-bottom: 18px; page-break-inside: avoid; }
+    .pdf-table th, .pdf-table td { border: 1px solid #aab6dc; padding: 9px 12px; text-align: left; word-break: break-all; }
+    .pdf-table th { background-color: #eef2fd; width: 22%; font-weight: 700; color: #1c2a6e; text-align: center; }
 
     .pdf-qa-box { margin-bottom: 14px; page-break-inside: avoid; break-inside: avoid; }
-    .pdf-question { font-weight: 700; font-size: 0.95rem; background-color: #f1f5f9; padding: 9px 12px; border: 1px solid #94a3b8; border-bottom: none; }
-    .pdf-answer { padding: 12px; border: 1px solid #94a3b8; min-height: 60px; white-space: pre-wrap; }
+    .pdf-question { font-weight: 700; font-size: 0.95rem; background-color: #eef2fd; padding: 9px 12px; border: 1px solid #aab6dc; border-bottom: none; }
+    .pdf-answer { padding: 12px; border: 1px solid #aab6dc; min-height: 60px; white-space: pre-wrap; }
 
     .pdf-image-section { page-break-inside: avoid; break-inside: avoid; }
     .pdf-image-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; }
-    .pdf-image-item { border: 1px solid #cbd5e1; border-radius: 6px; padding: 6px; text-align: center; background-color: #fafafa; page-break-inside: avoid; }
+    .pdf-image-item { border: 1px solid #d3dbf2; border-radius: 6px; padding: 6px; text-align: center; background-color: #f6f8fe; page-break-inside: avoid; }
     .pdf-image-item img { max-width: 100%; max-height: 200px; object-fit: contain; border-radius: 4px; }
+
+    /* 반응형 */
+    @media (max-width: 820px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .info-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    }
+    @media (max-width: 560px) {
+      .grid-2, .grid-4 { grid-template-columns: 1fr; }
+      .brand-text { display: none; }
+      .menu-link { padding: 0 13px; font-size: 0.85rem; height: 34px; }
+      .hero { padding-top: 20px; }
+      .hero-desc { display: none; }
+      .meta-row { font-size: 0.92rem; }
+      .info-grid { margin: 14px auto 12px; }
+      .section-card { padding: 22px 18px; }
+      .nav-tabs { max-width: none; }
+      .record-card { flex-direction: column; align-items: flex-start; }
+      :root { --header-h: 64px; }
+      .topbar { padding: 12px 16px; }
+      .action-bar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .action-bar::-webkit-scrollbar { display: none; }
+      .action-bar .btn { flex-shrink: 0; height: 38px; padding: 0 15px; font-size: 0.86rem; }
+      .action-bar .btn-submit { order: -1; margin-left: 0; }
+      .pdf-document { padding: 22px 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    
-    <!-- 메인 헤더 & 네비게이션 탭 -->
-    <div class="header">
-      <span class="header-badge">울산강남중학교</span>
-      <h1>울산강남중 AI 아이디어 챌린지 대회</h1>
-      <p>인공지능 탐구 프로젝트 활동 제출 기한 : 2026년 9월 28일(월) ~  10월 1일(목)</p>
-      
-      <div class="nav-tabs">
-        <button type="button" id="tab-form-btn" class="tab-btn active" onclick="switchTab('form')">활동 기록 작성</button>
-        <button type="button" id="tab-list-btn" class="tab-btn" onclick="switchTab('list')">저장된 활동 기록 목록 (<span id="record-count">0</span>)</button>
-      </div>
+  <!-- 상단 바 -->
+  <header class="site-header">
+    <div class="topbar">
+      <a class="brand" href="#intro" onclick="goToSection('intro'); return false;" style="text-decoration:none"><span class="brand-mark">AI</span><span class="brand-text">울산강남중 AI 아이디어 챌린지</span></a>
+      <nav class="top-menu" aria-label="주요 메뉴">
+        <a href="#intro" id="menu-intro" class="menu-link active" onclick="goToSection('intro'); return false;">챌린지 대회 소개</a>
+        <a href="#form-area" id="menu-form" class="menu-link" onclick="goToSection('form'); return false;">활동 기록 작성하기</a>
+      </nav>
     </div>
+  </header>
+
+  <!-- 히어로 -->
+  <section class="hero" id="intro">
+    <span class="hero-badge">2026학년도</span>
+    <h1>울산강남중 AI 아이디어 챌린지 대회</h1>
+    <p class="hero-sub">인공지능 탐구 프로젝트 · 탐구·과제 활동 기록장</p>
+
+    <div class="meta-row">
+      <span class="meta"><span class="meta-tag">기간</span>2026. 9. 28.(월) ~ 10. 1.(목)</span>
+      <span class="meta"><span class="meta-tag">제출</span>온라인 활동 기록장</span>
+    </div>
+
+    <div class="wordmark" aria-hidden="true">
+      <span class="wm-ai">AI</span><span class="wm-idea">IDEA</span>
+    </div>
+
+    <p class="hero-desc">
+      내가 탐구한 인공지능 프로젝트를 차근차근 기록해 보세요.<br>
+      <strong>무엇을 했고, 무엇을 알게 되었는지</strong> 나의 말로 적으면 멋진 활동 기록이 완성돼요.
+    </p>
+
+    <div class="info-grid">
+      <div class="info-card hot"><div class="lb">제출 시작</div><div class="vl">9. 28.(월)</div></div>
+      <div class="info-card"><div class="lb">제출 마감</div><div class="vl">10. 1.(목)</div></div>
+      <div class="info-card"><div class="lb">작성 항목</div><div class="vl">Q1 ~ Q4 기록</div></div>
+      <div class="info-card"><div class="lb">증빙 사진</div><div class="vl">최대 6장</div></div>
+    </div>
+
+    <div class="hero-controls">
+    <div class="dday-pill"><span id="dday-text">제출 마감까지 D-?</span></div>
+
+    <div class="nav-tabs">
+      <button type="button" id="tab-form-btn" class="tab-btn active" onclick="switchTab('form')">활동 기록 작성</button>
+      <button type="button" id="tab-list-btn" class="tab-btn" onclick="switchTab('list')">저장된 기록 <span id="record-count">0</span></button>
+    </div>
+    </div>
+  </section>
+
+  <div class="container">
 
     <!-- [1. 활동 기록 작성 폼 영역] -->
     <div id="form-area" class="content-area">
       <form id="activityForm">
         <input type="hidden" id="editingRecordId" value="">
+        <!-- 버튼 그룹 (상단 고정) -->
+        <div class="btn-group action-bar">
+          <button type="button" class="btn btn-reset" onclick="resetForm()">초기화</button>
+          <button type="button" class="btn btn-sample" onclick="loadSampleData()">샘플 작성</button>
+          <button type="button" class="btn btn-secondary" onclick="saveRecord()">임시 저장 (브라우저)</button>
+          <button type="button" class="btn btn-primary" onclick="showPreviewFromForm()">PDF 미리보기(2)</button>
+          <button type="button" id="submit-btn" class="btn btn-submit" onclick="submitToGoogle()">🚀 활동 기록 제출(1)</button>
+        </div>
         
         <!-- 1. 참가자 정보 -->
         <div class="section-card">
@@ -510,20 +778,20 @@
             <h2 class="section-title">탐구·과제 활동 기록</h2>
           </div>
           <div class="form-group">
-            <label for="q1">Q1. 내가 무엇을 했나요?</label>
-            <textarea id="q1" placeholder="활동 중 진행한 단계별 탐구 내용이나 역임한 역할을 구체적으로 적어주세요." required></textarea>
+            <label for="q1" class="q-label"><span class="q-tag">Q1</span>내가 무엇을 했나요?</label>
+            <textarea id="q1" placeholder="활동 중 진행한 단계별 탐구 내용이나 맡은 역할을 구체적으로 적어주세요." required></textarea>
           </div>
           <div class="form-group">
-            <label for="q2">Q2. 활동을 하면서 무엇을 알게 되었나요?</label>
+            <label for="q2" class="q-label"><span class="q-tag">Q2</span>활동을 하면서 무엇을 알게 되었나요?</label>
             <textarea id="q2" placeholder="새롭게 이해하게 된 AI 기술 원리나 지식, 개념을 적어주세요." required></textarea>
           </div>
           <div class="form-group">
-            <label for="q3">Q3. 어려웠던 점은 무엇인가요?</label>
+            <label for="q3" class="q-label"><span class="q-tag">Q3</span>어려웠던 점은 무엇인가요?</label>
             <textarea id="q3" placeholder="진행 중 발생한 문제점, 한계점 또는 어려웠던 부분을 적어주세요." required></textarea>
           </div>
           <div class="form-group">
-            <label for="q4">Q4. 활동을 통해 새롭게 발견한 점은 무엇인가요?</label>
-            <textarea id="q4" placeholder="자신의 흥미, 새로운 인사이트, 또는 향후 확장하고 싶은 방향을 적어주세요." required></textarea>
+            <label for="q4" class="q-label"><span class="q-tag">Q4</span>활동을 통해 새롭게 발견한 점은 무엇인가요?</label>
+            <textarea id="q4" placeholder="자신의 흥미, 새로운 인사이트, 또는 앞으로 확장하고 싶은 방향을 적어주세요." required></textarea>
           </div>
         </div>
 
@@ -534,22 +802,13 @@
             <h2 class="section-title">활동 관련 이미지 / 증빙 자료 (최대 6장)</h2>
           </div>
           <div class="image-upload-box" onclick="document.getElementById('imageInput').click();">
-            <strong style="color: var(--primary-color); font-size: 1.05rem;">📷 클릭하여 이미지 파일 첨부하기</strong>
-            <p>결과물, 코드 화면, 순서도, 탐구 관련 사진을 첨부하세요 (최대 6장)</p>
+            <strong>📷 클릭해서 이미지 첨부하기</strong>
+            <p>결과물, 코드 화면, 순서도, 탐구 관련 사진을 올려주세요 (최대 6장)</p>
             <input type="file" id="imageInput" accept="image/*" multiple style="display: none;" onchange="handleImageUpload(event)">
           </div>
           <div id="imagePreviewContainer" class="image-preview-container"></div>
         </div>
 
-        <!-- 버튼 그룹 -->
-        <div class="btn-group">
-          <button type="button" class="btn btn-reset" onclick="resetForm()">초기화</button>
-          <button type="button" class="btn btn-sample" onclick="loadSampleData()">샘플 작성</button>
-          <button type="button" class="btn btn-secondary" onclick="saveRecord()">임시 저장 (브라우저)</button>
-          <button type="button" class="btn btn-primary" onclick="showPreviewFromForm()">PDF 미리보기(1)</button>
-          <!-- 주황색 활동 기록 제출 버튼 -->
-          <button type="button" id="submit-btn" class="btn btn-submit" onclick="submitToGoogle()">🚀 활동 기록 제출(2)</button>
-        </div>
       </form>
     </div>
 
@@ -584,10 +843,18 @@
 
     <!-- [3. 기록 상세 보기 및 PDF 미리보기 영역] -->
     <div id="preview-area" class="content-area">
+      <!-- 버튼 그룹 (상단 고정) -->
+      <div class="btn-group action-bar">
+        <button type="button" class="btn btn-reset" onclick="backFromPreview()">돌아가기</button>
+        <button type="button" id="preview-edit-btn" class="btn btn-sample" onclick="editCurrentRecord()">기록 수정하기</button>
+        <button type="button" class="btn btn-primary" onclick="downloadPDF()">PDF 문서 저장</button>
+        <button type="button" id="preview-submit-btn" class="btn btn-submit" onclick="submitPDFToGoogle()">🚀 PDF 문서 제출</button>
+      </div>
+
       <div id="pdf-content" class="pdf-document">
         <div class="pdf-header">
           <h2>울산강남중 AI 아이디어 챌린지 대회</h2>
-          <p style="margin-top: 5px; color: #475569; font-size: 1.05rem;">참가자 탐구·과제 활동 기록장</p>
+          <p style="margin-top: 5px; color: #6b6a62; font-size: 1.05rem;">참가자 탐구·과제 활동 기록장</p>
         </div>
 
         <div class="pdf-section-title">1. 참가자 정보</div>
@@ -646,13 +913,6 @@
         </div>
       </div>
 
-      <div class="btn-group">
-        <button type="button" class="btn btn-secondary" onclick="backFromPreview()">돌아가기</button>
-        <button type="button" id="preview-edit-btn" class="btn btn-sample" onclick="editCurrentRecord()">기록 수정하기</button>
-        <button type="button" class="btn btn-primary" onclick="downloadPDF()">PDF 문서 저장</button>
-        <!-- PDF 문서 자동 생성 및 자동 제출 버튼 -->
-        <button type="button" id="preview-submit-btn" class="btn btn-submit" onclick="submitPDFToGoogle()">🚀 PDF 문서 제출</button>
-      </div>
     </div>
 
   </div>
@@ -661,8 +921,8 @@
     // ==========================================
     // 연결 정보 변수 설정 (Google Drive / Sheets)
     // ==========================================
-    const GOOGLE_SHEETS_ID = "1lSGu9P60r8AUYORfjiINZZ2h8xZcBToWCP-_A_vBiFc";
-    const GOOGLE_DRIVE_FOLDER_ID = "1_m7vdRUg17ZpGAlwViduB0HrmNraZ63U";
+    // ※ 스프레드시트 ID와 드라이브 폴더 ID는 보안을 위해 Apps Script(Code.gs) 안에만 적어 둡니다.
+    //   (이 페이지에서는 Apps Script 웹 앱 주소만 사용합니다.)
     // 발급해주신 Google Apps Script Web App URL
     const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-EBg3id6Ui42HL35RrhhPBPk4kvb1xM7guyLXBuddzSNVIFtSbEafr23PYh-1neeh/exec";
     
@@ -755,22 +1015,15 @@
     }
 
     // ==========================================
-    // Google Sheets & Drive 제출 기능 (작성 폼)
+    // Google Sheets & Drive 제출 기능
+    //  - 두 제출 버튼 모두 PDF를 자동 생성해서 함께 보냅니다.
+    //  - PDF는 Apps Script가 구글 드라이브 폴더에 저장합니다.
     // ==========================================
-    async function submitToGoogle() {
-      const form = document.getElementById('activityForm');
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
 
-      const submitBtn = document.getElementById('submit-btn');
-      submitBtn.disabled = true;
-      submitBtn.innerText = "제출 진행 중...";
-
-      const payload = {
-        spreadsheetId: GOOGLE_SHEETS_ID,
-        driveFolderId: GOOGLE_DRIVE_FOLDER_ID,
+    // 작성 폼의 현재 입력값을 객체로 모읍니다.
+    function collectFormData() {
+      return {
+        id: document.getElementById('editingRecordId').value || null,
         participantId: document.getElementById('participantId').value,
         studentId: document.getElementById('studentId').value,
         name: document.getElementById('name').value,
@@ -781,126 +1034,139 @@
         q2: document.getElementById('q2').value,
         q3: document.getElementById('q3').value,
         q4: document.getElementById('q4').value,
-        images: uploadedImages
+        images: [...uploadedImages]
       };
+    }
 
+    // PDF 파일 이름 (드라이브에 이 이름으로 저장됩니다)
+    function makePdfFileName(data) {
+      const safe = s => String(s || '').replace(/[\\/:*?"<>|]/g, '').trim();
+      return `울산강남중_${safe(data.studentId)}_${safe(data.name)}_${safe(data.participantId)}_활동기록장.pdf`;
+    }
+
+    // PDF 옵션 (저장/제출 공통)
+    function getPdfOptions(fileName) {
+      return {
+        margin:      [10, 10, 10, 10],
+        filename:    fileName,
+        image:       { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true, scrollY: 0, backgroundColor: '#ffffff' },
+        jsPDF:       { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak:   { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+    }
+
+    // 화면 밖에 PDF 문서를 복사해 두고 PDF(Blob)를 만듭니다.
+    // 미리보기 화면이 숨겨져 있어도 PDF가 빈 페이지로 나오지 않게 하기 위함입니다.
+    async function generatePDFBlob(data) {
+      fillPreviewData(data);
+      const source = document.getElementById('pdf-content');
+      const holder = document.createElement('div');
+      holder.style.cssText = 'position:fixed; left:-10000px; top:0; width:794px; background:#fff;';
+      const clone = source.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.style.borderRadius = '0';
+      holder.appendChild(clone);
+      document.body.appendChild(holder);
       try {
-        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
-          method: "POST",
-          body: JSON.stringify(payload)
-        });
-
-        const resData = await response.json();
-
-        if (resData.result === "success") {
-          alert("활동 기록이 성공적으로 제출되었습니다.");
-          saveRecord(false);
-        } else {
-          alert("저장에 실패했습니다. 오류 원인: " + (resData.message || "알 수 없는 오류"));
-        }
-      } catch (error) {
-        alert("서버 통신 중 오류가 발생했습니다. 원인: " + error.message);
+        // 첨부 이미지가 모두 로드될 때까지 기다립니다.
+        await Promise.all(Array.from(clone.querySelectorAll('img')).map(img =>
+          img.complete ? Promise.resolve() : new Promise(res => { img.onload = img.onerror = res; })
+        ));
+        return await html2pdf().set(getPdfOptions(makePdfFileName(data))).from(clone).outputPdf('blob');
       } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerText = "🚀 활동 기록 제출(2)";
+        holder.remove();
       }
     }
 
-    // ==========================================
-    // Helper: PDF Blob 생성 함수
-    // ==========================================
-    function generatePDFBlob() {
-      const element = document.getElementById('pdf-content');
-      const participantId = document.getElementById('p-participantId').innerText || '코드';
-      const name = document.getElementById('p-name').innerText || '이름';
-
-      const opt = {
-        margin:       [10, 10, 10, 10],
-        filename:     `울산강남중_${participantId}_${name}_활동기록장.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-
-      return html2pdf().set(opt).from(element).output('blob');
-    }
-
-    // Helper: Blob -> Base64 변환 함수
+    // Blob -> Base64 (data: 접두어 없이 순수 Base64만 반환)
     function blobToBase64(blob) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
+        reader.onloadend = () => resolve(String(reader.result).split(',')[1]);
         reader.onerror = reject;
         reader.readAsDataURL(blob);
       });
     }
 
-    // ==========================================
-    // PDF 파일 자동생성 및 Google 자동 제출 기능
-    // ==========================================
-    async function submitPDFToGoogle() {
-      if (!currentPreviewData) {
-        alert("제출할 문서 데이터가 존재하지 않습니다.");
-        return;
-      }
-
-      const submitBtn = document.getElementById('preview-submit-btn');
-      submitBtn.disabled = true;
-      submitBtn.innerText = "⏳ PDF 생성 및 제출 중...";
+    // PDF를 만들어 Apps Script로 보냅니다. (두 제출 버튼이 함께 사용)
+    async function sendRecordWithPdf(data, button, idleLabel) {
+      button.disabled = true;
+      button.innerText = "⏳ PDF 만드는 중...";
 
       try {
-        // 1. PDF 자동생성 (Blob)
-        const pdfBlob = await generatePDFBlob();
-
-        // 2. Base64 형식으로 변환
+        const pdfBlob = await generatePDFBlob(data);
         const pdfBase64 = await blobToBase64(pdfBlob);
 
-        const fileName = `울산강남중_${currentPreviewData.participantId}_${currentPreviewData.name}_활동기록장.pdf`;
+        button.innerText = "⏳ 드라이브에 저장 중...";
 
-        // 3. 텍스트 정보 및 자동 생성된 PDF 바이너리 전송 데이터 구성
         const payload = {
-          spreadsheetId: GOOGLE_SHEETS_ID,
-          driveFolderId: GOOGLE_DRIVE_FOLDER_ID,
-          participantId: currentPreviewData.participantId,
-          studentId: currentPreviewData.studentId,
-          name: currentPreviewData.name,
-          date: currentPreviewData.date,
-          activityType: currentPreviewData.activityType,
-          projectTopic: currentPreviewData.projectTopic,
-          q1: currentPreviewData.q1,
-          q2: currentPreviewData.q2,
-          q3: currentPreviewData.q3,
-          q4: currentPreviewData.q4,
-          images: currentPreviewData.images || [],
-          // 자동 생성된 PDF 바이너리 파일 첨부
+          participantId: data.participantId,
+          studentId: data.studentId,
+          name: data.name,
+          date: data.date,
+          activityType: data.activityType,
+          projectTopic: data.projectTopic,
+          q1: data.q1,
+          q2: data.q2,
+          q3: data.q3,
+          q4: data.q4,
+          images: data.images || [],
           pdfFile: {
-            filename: fileName,
+            filename: makePdfFileName(data),
             mimeType: "application/pdf",
             base64: pdfBase64
           }
         };
 
-        // 4. Google Apps Script 연동 서버로 자동 제출
+        // Content-Type을 text/plain으로 보내야 CORS 사전 요청 없이 Apps Script에 전달됩니다.
         const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
           method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
 
-        const resData = await response.json();
+        const text = await response.text();
+        let resData;
+        try {
+          resData = JSON.parse(text);
+        } catch (e) {
+          throw new Error("Apps Script 응답을 읽을 수 없습니다. 웹 앱 배포 설정(액세스: 모든 사용자)을 확인하세요.");
+        }
 
         if (resData.result === "success") {
-          alert("PDF 파일이 성공적으로 자동 생성되어 서버로 제출되었습니다!");
-          saveRecordDirect(currentPreviewData, false);
+          let msg = "제출 완료! PDF가 구글 드라이브에 저장되었습니다.";
+          if (resData.pdfUrl) msg += "\n\n저장된 PDF: " + resData.pdfUrl;
+          alert(msg);
+          saveRecordDirect(data, false);
         } else {
-          alert("제출에 실패했습니다. 오류 원인: " + (resData.message || "알 수 없는 오류"));
+          alert("제출에 실패했습니다. 원인: " + (resData.message || "알 수 없는 오류"));
         }
       } catch (error) {
         alert("PDF 생성 또는 제출 중 오류가 발생했습니다. 원인: " + error.message);
       } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerText = "🚀 PDF 문서 제출";
+        button.disabled = false;
+        button.innerText = idleLabel;
       }
+    }
+
+    // [작성 화면] 활동 기록 제출 버튼
+    async function submitToGoogle() {
+      const form = document.getElementById('activityForm');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      await sendRecordWithPdf(collectFormData(), document.getElementById('submit-btn'), "🚀 활동 기록 제출(1)");
+    }
+
+    // [미리보기 화면] PDF 문서 제출 버튼
+    async function submitPDFToGoogle() {
+      if (!currentPreviewData) {
+        alert("제출할 문서 데이터가 없습니다.");
+        return;
+      }
+      await sendRecordWithPdf(currentPreviewData, document.getElementById('preview-submit-btn'), "🚀 PDF 문서 제출");
     }
 
     function saveRecordDirect(recordData, showAlert = true) {
@@ -1139,23 +1405,62 @@
     }
 
     function downloadPDF() {
+      const data = currentPreviewData;
+      if (!data) return;
       const element = document.getElementById('pdf-content');
-      const participantId = document.getElementById('p-participantId').innerText || '코드';
-      const name = document.getElementById('p-name').innerText || '이름';
-
-      const opt = {
-        margin:       [10, 10, 10, 10],
-        filename:     `울산강남중_${participantId}_${name}_활동기록장.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-
-      html2pdf().set(opt).from(element).save();
+      html2pdf().set(getPdfOptions(makePdfFileName(data))).from(element).save();
     }
 
-    window.onload = initPage;
+    // 제출 마감 D-day 표시
+    function updateDday() {
+      const el = document.getElementById('dday-text');
+      if (!el) return;
+      const today = new Date(); today.setHours(0,0,0,0);
+      const deadline = new Date(2026, 9, 1); // 2026-10-01
+      const diff = Math.round((deadline - today) / 86400000);
+      if (diff > 0) el.innerText = `제출 마감까지 D-${diff}`;
+      else if (diff === 0) el.innerText = '오늘 제출 마감! D-DAY';
+      else el.innerText = '제출이 마감되었어요';
+    }
+
+    // ==========================================
+    // 상단 메뉴: 해당 영역으로 이동 + 현재 위치 표시
+    // ==========================================
+    function headerOffset() {
+      const h = document.querySelector('.site-header');
+      return h ? h.offsetHeight : 0;
+    }
+
+    function setActiveMenu(key) {
+      document.getElementById('menu-intro').classList.toggle('active', key === 'intro');
+      document.getElementById('menu-form').classList.toggle('active', key === 'form');
+    }
+
+    function goToSection(key) {
+      const smooth = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      if (key === 'intro') {
+        window.scrollTo({ top: 0, behavior: smooth });
+      } else {
+        switchTab('form'); // 목록·미리보기 화면에 있어도 작성 화면으로 전환
+        const target = document.getElementById('form-area');
+        const y = target.getBoundingClientRect().top + window.scrollY - headerOffset() - 8;
+        window.scrollTo({ top: y, behavior: smooth });
+      }
+      setActiveMenu(key);
+    }
+
+    function updateActiveMenuOnScroll() {
+      const hero = document.getElementById('intro');
+      const passedHero = hero.getBoundingClientRect().bottom < headerOffset() + 120;
+      setActiveMenu(passedHero ? 'form' : 'intro');
+    }
+
+    window.onload = function () {
+      initPage();
+      updateDday();
+      updateActiveMenuOnScroll();
+      window.addEventListener('scroll', updateActiveMenuOnScroll, { passive: true });
+    };
   </script>
 </body>
 </html>
