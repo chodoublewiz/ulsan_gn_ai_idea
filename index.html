@@ -650,6 +650,8 @@
         <button type="button" class="btn btn-secondary" onclick="backFromPreview()">돌아가기</button>
         <button type="button" id="preview-edit-btn" class="btn btn-sample" onclick="editCurrentRecord()">기록 수정하기</button>
         <button type="button" class="btn btn-primary" onclick="downloadPDF()">PDF 문서 저장</button>
+        <!-- PDF 문서 자동 생성 및 자동 제출 버튼 -->
+        <button type="button" id="preview-submit-btn" class="btn btn-submit" onclick="submitPDFToGoogle()">🚀 PDF 문서 제출</button>
       </div>
     </div>
 
@@ -667,6 +669,7 @@
 
     let uploadedImages = [];
     let currentPreviewRecordId = null;
+    let currentPreviewData = null;
     const STORAGE_KEY = 'ulsan_gangnam_ai_records';
 
     function generateParticipantId() {
@@ -683,6 +686,7 @@
       document.getElementById('date').value = new Date().toISOString().substring(0, 10);
       document.getElementById('editingRecordId').value = '';
       uploadedImages = [];
+      currentPreviewData = null;
       renderImagePreviews();
       updateRecordCount();
     }
@@ -751,7 +755,7 @@
     }
 
     // ==========================================
-    // Google Sheets & Drive 제출 기능
+    // Google Sheets & Drive 제출 기능 (작성 폼)
     // ==========================================
     async function submitToGoogle() {
       const form = document.getElementById('activityForm');
@@ -790,7 +794,7 @@
 
         if (resData.result === "success") {
           alert("활동 기록이 성공적으로 제출되었습니다.");
-          saveRecord(false); // 제출 성공 후 브라우저 내 저장소에도 동기화
+          saveRecord(false);
         } else {
           alert("저장에 실패했습니다. 오류 원인: " + (resData.message || "알 수 없는 오류"));
         }
@@ -798,8 +802,130 @@
         alert("서버 통신 중 오류가 발생했습니다. 원인: " + error.message);
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerText = "🚀 활동 기록 제출";
+        submitBtn.innerText = "🚀 활동 기록 제출(2)";
       }
+    }
+
+    // ==========================================
+    // Helper: PDF Blob 생성 함수
+    // ==========================================
+    function generatePDFBlob() {
+      const element = document.getElementById('pdf-content');
+      const participantId = document.getElementById('p-participantId').innerText || '코드';
+      const name = document.getElementById('p-name').innerText || '이름';
+
+      const opt = {
+        margin:       [10, 10, 10, 10],
+        filename:     `울산강남중_${participantId}_${name}_활동기록장.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      return html2pdf().set(opt).from(element).output('blob');
+    }
+
+    // Helper: Blob -> Base64 변환 함수
+    function blobToBase64(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    // ==========================================
+    // PDF 파일 자동생성 및 Google 자동 제출 기능
+    // ==========================================
+    async function submitPDFToGoogle() {
+      if (!currentPreviewData) {
+        alert("제출할 문서 데이터가 존재하지 않습니다.");
+        return;
+      }
+
+      const submitBtn = document.getElementById('preview-submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "⏳ PDF 생성 및 제출 중...";
+
+      try {
+        // 1. PDF 자동생성 (Blob)
+        const pdfBlob = await generatePDFBlob();
+
+        // 2. Base64 형식으로 변환
+        const pdfBase64 = await blobToBase64(pdfBlob);
+
+        const fileName = `울산강남중_${currentPreviewData.participantId}_${currentPreviewData.name}_활동기록장.pdf`;
+
+        // 3. 텍스트 정보 및 자동 생성된 PDF 바이너리 전송 데이터 구성
+        const payload = {
+          spreadsheetId: GOOGLE_SHEETS_ID,
+          driveFolderId: GOOGLE_DRIVE_FOLDER_ID,
+          participantId: currentPreviewData.participantId,
+          studentId: currentPreviewData.studentId,
+          name: currentPreviewData.name,
+          date: currentPreviewData.date,
+          activityType: currentPreviewData.activityType,
+          projectTopic: currentPreviewData.projectTopic,
+          q1: currentPreviewData.q1,
+          q2: currentPreviewData.q2,
+          q3: currentPreviewData.q3,
+          q4: currentPreviewData.q4,
+          images: currentPreviewData.images || [],
+          // 자동 생성된 PDF 바이너리 파일 첨부
+          pdfFile: {
+            filename: fileName,
+            mimeType: "application/pdf",
+            base64: pdfBase64
+          }
+        };
+
+        // 4. Google Apps Script 연동 서버로 자동 제출
+        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+
+        const resData = await response.json();
+
+        if (resData.result === "success") {
+          alert("PDF 파일이 성공적으로 자동 생성되어 서버로 제출되었습니다!");
+          saveRecordDirect(currentPreviewData, false);
+        } else {
+          alert("제출에 실패했습니다. 오류 원인: " + (resData.message || "알 수 없는 오류"));
+        }
+      } catch (error) {
+        alert("PDF 생성 또는 제출 중 오류가 발생했습니다. 원인: " + error.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "🚀 PDF 문서 제출";
+      }
+    }
+
+    function saveRecordDirect(recordData, showAlert = true) {
+      const records = getStoredRecords();
+      const editingId = recordData.id || document.getElementById('editingRecordId').value;
+
+      const dataToSave = {
+        id: editingId || 'rec_' + Date.now(),
+        ...recordData,
+        updatedAt: new Date().toISOString()
+      };
+
+      if (editingId) {
+        const index = records.findIndex(r => r.id === editingId);
+        if (index !== -1) records[index] = dataToSave;
+        else records.unshift(dataToSave);
+      } else {
+        records.unshift(dataToSave);
+      }
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+      if (showAlert) alert(editingId ? "활동 기록이 성공적으로 수정되었습니다!" : "임시 저장 완료!");
+      
+      resetForm();
+      switchTab('list');
     }
 
     function saveRecord(showAlert = true) {
@@ -809,11 +935,8 @@
         return;
       }
 
-      const records = getStoredRecords();
-      const editingId = document.getElementById('editingRecordId').value;
-
       const recordData = {
-        id: editingId || 'rec_' + Date.now(),
+        id: document.getElementById('editingRecordId').value,
         participantId: document.getElementById('participantId').value,
         studentId: document.getElementById('studentId').value,
         name: document.getElementById('name').value,
@@ -824,22 +947,10 @@
         q2: document.getElementById('q2').value,
         q3: document.getElementById('q3').value,
         q4: document.getElementById('q4').value,
-        images: [...uploadedImages],
-        updatedAt: new Date().toISOString()
+        images: [...uploadedImages]
       };
 
-      if (editingId) {
-        const index = records.findIndex(r => r.id === editingId);
-        if (index !== -1) records[index] = recordData;
-      } else {
-        records.unshift(recordData);
-      }
-
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-      if (showAlert) alert(editingId ? "활동 기록이 성공적으로 수정되었습니다!" : "임시 저장 완료!");
-      
-      resetForm();
-      switchTab('list');
+      saveRecordDirect(recordData, showAlert);
     }
 
     function deleteRecord(id) {
@@ -905,6 +1016,7 @@
       if (!record) return;
 
       currentPreviewRecordId = record.id;
+      currentPreviewData = record;
       fillPreviewData(record);
 
       document.getElementById('form-area').style.display = 'none';
@@ -922,6 +1034,7 @@
       }
 
       const recordData = {
+        id: document.getElementById('editingRecordId').value || null,
         participantId: document.getElementById('participantId').value,
         studentId: document.getElementById('studentId').value,
         name: document.getElementById('name').value,
@@ -935,7 +1048,8 @@
         images: [...uploadedImages]
       };
 
-      currentPreviewRecordId = document.getElementById('editingRecordId').value || null;
+      currentPreviewRecordId = recordData.id;
+      currentPreviewData = recordData;
       fillPreviewData(recordData);
 
       document.getElementById('form-area').style.display = 'none';
